@@ -25,70 +25,84 @@ function createIAHFormCorrected() {
 
   // 3. Website Section
   var webPage = form.addPageBreakItem().setTitle("Website Configuration");
-  form
+  var websiteTypeQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Select Website Type")
+    .setTitle("Select Website Type");
+  websiteTypeQuestion
     .setChoices([
-      form.createChoice("Single Page Website (SPW) - [~24 Hours]"),
-      form.createChoice("Dynamic Multi-Page Website - [72 Hrs - 1 Week]"),
+      websiteTypeQuestion.createChoice(
+        "Single Page Website (SPW) - [~24 Hours]"
+      ),
+      websiteTypeQuestion.createChoice(
+        "Dynamic Multi-Page Website - [72 Hrs - 1 Week]"
+      ),
     ])
     .setRequired(true);
-  form
+  var websiteTierQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Select Website Tier")
+    .setTitle("Select Website Tier");
+  websiteTierQuestion
     .setChoices([
-      form.createChoice("Basic SPW (₹4,999 / $60)"),
-      form.createChoice("Medium SPW (₹8,999 / $110)"),
-      form.createChoice("Advance SPW (₹14,999 / $180)"),
-      form.createChoice("Basic Dynamic (₹19,999 / $240)"),
-      form.createChoice("Medium Dynamic (₹34,999 / $420)"),
-      form.createChoice("Advance Dynamic (₹59,999 / $720)"),
+      websiteTierQuestion.createChoice("Basic SPW (₹4,999 / $60)"),
+      websiteTierQuestion.createChoice("Medium SPW (₹8,999 / $110)"),
+      websiteTierQuestion.createChoice("Advance SPW (₹14,999 / $180)"),
+      websiteTierQuestion.createChoice("Basic Dynamic (₹19,999 / $240)"),
+      websiteTierQuestion.createChoice("Medium Dynamic (₹34,999 / $420)"),
+      websiteTierQuestion.createChoice("Advance Dynamic (₹59,999 / $720)"),
     ])
     .setRequired(true);
 
   // 4. Web App Section
   var webAppPage = form.addPageBreakItem().setTitle("Web App Configuration");
-  form
+  var webAppTypeQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Select Web App Type")
+    .setTitle("Select Web App Type");
+  webAppTypeQuestion
     .setChoices([
-      form.createChoice("Single Page App (SPA) - [~24 Hours]"),
-      form.createChoice("Multi-Tasking Dynamic App - [72 Hrs - 1 Week]"),
+      webAppTypeQuestion.createChoice("Single Page App (SPA) - [~24 Hours]"),
+      webAppTypeQuestion.createChoice(
+        "Multi-Tasking Dynamic App - [72 Hrs - 1 Week]"
+      ),
     ])
     .setRequired(true);
-  form
+  var webAppTierQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Select Web App Tier")
+    .setTitle("Select Web App Tier");
+  webAppTierQuestion
     .setChoices([
-      form.createChoice("Basic SPA (₹24,999 / $300)"),
-      form.createChoice("Medium SPA (₹44,999 / $540)"),
-      form.createChoice("Advance SPA (₹89,999 / $1,080)"),
-      form.createChoice("Basic Dynamic (₹49,999 / $600)"),
-      form.createChoice("Medium Dynamic (₹99,999 / $1,200)"),
-      form.createChoice("Advance Dynamic (₹2L+ / $2,500+)"),
+      webAppTierQuestion.createChoice("Basic SPA (₹24,999 / $300)"),
+      webAppTierQuestion.createChoice("Medium SPA (₹44,999 / $540)"),
+      webAppTierQuestion.createChoice("Advance SPA (₹89,999 / $1,080)"),
+      webAppTierQuestion.createChoice("Basic Dynamic (₹49,999 / $600)"),
+      webAppTierQuestion.createChoice("Medium Dynamic (₹99,999 / $1,200)"),
+      webAppTierQuestion.createChoice("Advance Dynamic (₹2L+ / $2,500+)"),
     ])
     .setRequired(true);
 
   // 5. Mobile App Section
   var mobilePage = form.addPageBreakItem().setTitle("Mobile App Configuration");
-  form
+  var mobileTypeQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Select Mobile App Type")
+    .setTitle("Select Mobile App Type");
+  mobileTypeQuestion
     .setChoices([
-      form.createChoice("Mobile SPA (WebView) - [24-48 Hours]"),
-      form.createChoice("Native Dynamic App - [72 Hrs - 1 Week+]"),
+      mobileTypeQuestion.createChoice("Mobile SPA (WebView) - [24-48 Hours]"),
+      mobileTypeQuestion.createChoice(
+        "Native Dynamic App - [72 Hrs - 1 Week+]"
+      ),
     ])
     .setRequired(true);
-  form
+  var mobileTierQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Select Mobile App Tier")
+    .setTitle("Select Mobile App Tier");
+  mobileTierQuestion
     .setChoices([
-      form.createChoice("Basic Mobile SPA (₹29,999 / $360)"),
-      form.createChoice("Medium Mobile SPA (₹49,999 / $600)"),
-      form.createChoice("Advance Mobile SPA (₹79,999 / $950)"),
-      form.createChoice("Basic Native (₹99,999 / $1,200)"),
-      form.createChoice("Medium Native (₹1.5L / $1,800)"),
-      form.createChoice("Advance Native (₹2.5L+ / $3,000+)"),
+      mobileTierQuestion.createChoice("Basic Mobile SPA (₹29,999 / $360)"),
+      mobileTierQuestion.createChoice("Medium Mobile SPA (₹49,999 / $600)"),
+      mobileTierQuestion.createChoice("Advance Mobile SPA (₹79,999 / $950)"),
+      mobileTierQuestion.createChoice("Basic Native (₹99,999 / $1,200)"),
+      mobileTierQuestion.createChoice("Medium Native (₹1.5L / $1,800)"),
+      mobileTierQuestion.createChoice("Advance Native (₹2.5L+ / $3,000+)"),
     ])
     .setRequired(true);
 
@@ -112,22 +126,24 @@ function createIAHFormCorrected() {
     .addParagraphItem()
     .setTitle("Describe the Vibe/Design (or paste reference links)");
 
-  form
+  var contentStatusQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Content Status")
+    .setTitle("Content Status");
+  contentStatusQuestion
     .setChoices([
-      form.createChoice("I have all content ready"),
-      form.createChoice("I need help with content"),
+      contentStatusQuestion.createChoice("I have all content ready"),
+      contentStatusQuestion.createChoice("I need help with content"),
     ])
     .setRequired(true);
 
-  form
+  var timelineQuestion = form
     .addMultipleChoiceItem()
-    .setTitle("Timeline Preference")
+    .setTitle("Timeline Preference");
+  timelineQuestion
     .setChoices([
-      form.createChoice("Rush (24-48 hours)"),
-      form.createChoice("Standard (3-7 days)"),
-      form.createChoice("Flexible (1-2 weeks)"),
+      timelineQuestion.createChoice("Rush (24-48 hours)"),
+      timelineQuestion.createChoice("Standard (3-7 days)"),
+      timelineQuestion.createChoice("Flexible (1-2 weeks)"),
     ])
     .setRequired(true);
 
