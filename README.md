@@ -104,12 +104,23 @@ function createIAHFormCorrected() {
 The form automatically connects to a Google Sheets document for response collection. The current configuration uses:
 
 ```javascript
+// Method 1: Using Sheet ID (Recommended)
 var sheet = SpreadsheetApp.openById("1yMGbjuHMdHx6KGe6f6RWlwn69oh9tzSD0MlHPux6Dc8");
+
+// Method 2: Extract ID from URL (Alternative)
+// If you have the full URL: https://docs.google.com/spreadsheets/d/1yMGbjuHMdHx6KGe6f6RWlwn69oh9tzSD0MlHPux6Dc8/edit?usp=sharing
+// Extract the ID between '/d/' and '/edit'
+var sheetUrl = "https://docs.google.com/spreadsheets/d/1yMGbjuHMdHx6KGe6f6RWlwn69oh9tzSD0MlHPux6Dc8/edit?usp=sharing";
+var sheetId = sheetUrl.match(/\/d\/([a-zA-Z0-9-_]+)/)[1];
+var sheet = SpreadsheetApp.openById(sheetId);
 ```
 
 **Current Spreadsheet:** [IAH Creations Form Responses](https://docs.google.com/spreadsheets/d/1yMGbjuHMdHx6KGe6f6RWlwn69oh9tzSD0MlHPux6Dc8/edit?usp=sharing)
 
-To use your own spreadsheet, replace the Sheet ID with your document's ID from the URL.
+**How to get Sheet ID from URL:**
+- Copy your Google Sheets URL
+- The ID is the long string between `/d/` and `/edit`
+- Example: `https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID_HERE/edit`
 
 ### Customization
 - Modify pricing in the choice options
