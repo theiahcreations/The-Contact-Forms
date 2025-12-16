@@ -1,125 +1,14 @@
-function createIAHForm() {
-  // 1. Create the Form
-  var form = FormApp.create("The IAH Creations - Project Order Form");
-  form.setDescription(
-    "Welcome to The IAH Creations. Select your desired digital solution below. We specialize in rapid prototyping (24-48 hrs) and full-scale commercial development."
-  );
-  form.setProgressBar(true);
-
-  // --- SECTION 1: CLIENT DETAILS ---
-  var section1 = form.addSectionHeaderItem().setTitle("Client Information");
-  form.addTextItem().setTitle("Full Name").setRequired(true);
-  form.addTextItem().setTitle("Email Address").setRequired(true);
-  form.addTextItem().setTitle("WhatsApp / Contact Number").setRequired(true);
-  form.addTextItem().setTitle("Business / Company Name").setRequired(true);
-
-  // --- PREPARE PAGE BREAKS FOR LOGIC JUMPS ---
-  // We create these first so we can link to them in the Multiple Choice question
-  var webPage = form.addPageBreakItem().setTitle("Website Configuration");
-  var webAppPage = form.addPageBreakItem().setTitle("Web App Configuration");
-  var mobilePage = form.addPageBreakItem().setTitle("Mobile App Configuration");
-  var designPage = form.addPageBreakItem().setTitle("Design & Content"); // Destination after config
-
-  // --- SECTION 2: SERVICE SELECTION (With Logic) ---
-  // We go back to insert the choice question before the page breaks
-  var serviceItem = form
-    .addMultipleChoiceItem()
-    .setTitle("Which core service do you require?")
-    .setHelpText(
-      "This will direct you to the specific pricing and configuration for your choice."
-    )
-    .setRequired(true);
-
-  // Create choices that jump to specific pages
-  var choiceWeb = serviceItem.createChoice(
-    "Website Creation (Portfolios, Corporate, E-com)",
-    webPage
-  );
-  var choiceWebApp = serviceItem.createChoice(
-    "Web App Creation (Dashboards, SaaS, Tools)",
-    webAppPage
-  );
-  var choiceMobile = serviceItem.createChoice(
-    "Mobile App Creation (iOS & Android)",
-    mobilePage
-  );
-
-  serviceItem.setChoices([choiceWeb, choiceWebApp, choiceMobile]);
-
-  // Move the selection question to be before the first page break
-  form.moveItem(serviceItem.getIndex(), webPage.getIndex());
-
-  // --- SECTION 3: WEBSITE CONFIGURATION ---
-  // (Items added here naturally fall under 'webPage')
-  form
-    .addMultipleChoiceItem()
-    .setTitle("Select Website Type")
-    .setChoices([
-      form.createChoice(
-        "1.1 Single Page Website (SPW) - [Turnaround: ~24 Hours]"
-      ),
-      form.createChoice(
-        "1.2 Dynamic Multi-Page Website - [Turnaround: 72 Hrs - 1 Week]"
-      ),
-    ])
-    .setRequired(true);
-
-  form
-    .addMultipleChoiceItem()
-    .setTitle("Select Your Tier (Website)")
-    .setHelpText("Prices based on INR / USD / EUR")
-    .setChoices([
-      form.createChoice(
-        "Basic SPW (₹4,999 | $60) - Template Based, 3 Sections"
-      ),
-      form.createChoice("Medium SPW (₹8,999 | $110) - Semi-Custom, 6 Sections"),
-      form.createChoice(
-        "Advance SPW (₹14,999 | $180) - Fully Custom UI/UX, Unlimited"
-      ),
-      form.createChoice(
-        "Basic Dynamic (₹19,999 | $240) - Contact Form, Mobile Friendly"
-      ),
-      form.createChoice(
-        "Medium Dynamic (₹34,999 | $420) - CMS Integration, SEO"
-      ),
-      form.createChoice(
-        "Advance Dynamic (₹59,999 | $720) - E-commerce Ready, Adaptive"
-      ),
-    ])
-    .setRequired(true);
-
-  // Logic: After Website, go to Design
-  webPage.setGoToPage(designPage);
-
-  // --- SECTION 4: WEB APP CONFIGURATION ---
-  // (Items added here naturally fall under 'webAppPage')
-  // We need to move items to ensure they fall under the correct header if we were adding out of order,
-  // but since we are adding sequentially after creating page breaks, we just need to manage the flow.
-  // Actually, in script, items are added to the end. We need to move the page breaks to the end as we go, or add items specifically.
-  // Strategy: The 'add' methods append to the end.
-  // So: Add Web Items -> Add WebApp Page Break -> Add WebApp Items...
-
-  // RE-STRATEGY for clean script execution:
-  // 1. Create Form & Client Info
-  // 2. Create Service Selection Question
-  // 3. Create Web Page Break
-  // 4. Create Web Items
-  // 5. Create Web App Page Break
-  // 6. Create Web App Items
-  // 7. Create Mobile Page Break
-  // 8. Create Mobile Items
-  // 9. Create Design Page Break
-  // 10. Create Design Items
-  // 11. Finally, map the Service Selection choices to the Page Breaks.
-
-  // Let's restart the "adding" sequence correctly below to avoid index confusion.
-}
-
 function createIAHFormCorrected() {
   var form = FormApp.create("The IAH Creations - Project Order Form");
   form.setDescription(
     "Select your desired digital solution below. We specialize in rapid prototyping (24-48 hrs) and full-scale commercial development."
   );
+
+  // Link to Google Sheets for automatic response collection
+  var sheet = SpreadsheetApp.openById(
+    "1Kc4HarCVO1N2lSyond9u1RUYhPcgU9vUk_drSLMomYpzqBp7qdQPbf_u"
+  );
+  form.setDestination(FormApp.DestinationType.SPREADSHEET, sheet.getId());
 
   // 1. Client Info
   form.addSectionHeaderItem().setTitle("Client Information");
@@ -222,22 +111,30 @@ function createIAHFormCorrected() {
   form
     .addParagraphItem()
     .setTitle("Describe the Vibe/Design (or paste reference links)");
+
   form
     .addMultipleChoiceItem()
     .setTitle("Content Status")
     .setChoices([
       form.createChoice("I have all content ready"),
       form.createChoice("I need help with content"),
-      form.createChoice("Use placeholders"),
-    ]);
+    ])
+    .setRequired(true);
+
   form
     .addMultipleChoiceItem()
-    .setTitle("Budget Range")
+    .setTitle("Timeline Preference")
     .setChoices([
-      form.createChoice("Micro (< ₹10k)"),
-      form.createChoice("Standard (₹20k - ₹50k)"),
-      form.createChoice("Premium (₹50k - ₹1L)"),
-      form.createChoice("Enterprise (₹1.5L+)"),
-    ]);
-  form.addParagraphItem().setTitle("Any extra instructions?");
+      form.createChoice("Rush (24-48 hours)"),
+      form.createChoice("Standard (3-7 days)"),
+      form.createChoice("Flexible (1-2 weeks)"),
+    ])
+    .setRequired(true);
+
+  form
+    .addParagraphItem()
+    .setTitle("Additional Requirements or Notes")
+    .setHelpText("Any specific features, integrations, or special requests");
+
+  return form;
 }
