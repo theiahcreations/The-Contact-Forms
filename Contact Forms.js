@@ -121,7 +121,7 @@ function createIAHFormCorrected() {
 
     // Add Final Questions
     form
-      .addParagraphItem()
+      .addParagraphTextItem()
       .setTitle("Describe the Vibe/Design (or paste reference links)");
 
     var contentStatus = form.addMultipleChoiceItem();
@@ -144,7 +144,7 @@ function createIAHFormCorrected() {
       .setRequired(true);
 
     form
-      .addParagraphItem()
+      .addParagraphTextItem()
       .setTitle("Additional Requirements or Notes")
       .setHelpText("Any specific features, integrations, or special requests");
 
