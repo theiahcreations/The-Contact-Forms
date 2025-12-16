@@ -47,9 +47,24 @@ This project contains a Google Apps Script that creates a comprehensive project 
 ### Running the Form Creator
 ```javascript
 function createIAHFormCorrected() {
-  // This function creates the complete form with all sections
+  // Creates a comprehensive project order form with:
+  // - Dynamic conditional branching based on service selection
+  // - Automatic Google Sheets integration for response collection
+  // - Complete pricing structure for all service tiers
+  // - Professional form layout with progress tracking
+  
+  var form = FormApp.create("The IAH Creations - Project Order Form");
+  // ... (complete implementation in Contact Forms.js)
+  return form;
 }
 ```
+
+**To execute the script:**
+1. Open Google Apps Script editor
+2. Paste the complete code from `Contact Forms.js`
+3. Click the "Run" button or press Ctrl+R
+4. Authorize the required permissions when prompted
+5. The form will be created and linked to your Google Sheets automatically
 
 ### Form Structure
 1. **Client Information**: Name, email, contact details
@@ -86,11 +101,15 @@ function createIAHFormCorrected() {
 ## Configuration
 
 ### Google Sheets Integration
-The form automatically connects to a Google Sheets document for response collection. Update the Sheet ID in the script:
+The form automatically connects to a Google Sheets document for response collection. The current configuration uses:
 
 ```javascript
-var sheet = SpreadsheetApp.openById("YOUR_SHEET_ID_HERE");
+var sheet = SpreadsheetApp.openById("1yMGbjuHMdHx6KGe6f6RWlwn69oh9tzSD0MlHPux6Dc8");
 ```
+
+**Current Spreadsheet:** [IAH Creations Form Responses](https://docs.google.com/spreadsheets/d/1yMGbjuHMdHx6KGe6f6RWlwn69oh9tzSD0MlHPux6Dc8/edit?usp=sharing)
+
+To use your own spreadsheet, replace the Sheet ID with your document's ID from the URL.
 
 ### Customization
 - Modify pricing in the choice options
